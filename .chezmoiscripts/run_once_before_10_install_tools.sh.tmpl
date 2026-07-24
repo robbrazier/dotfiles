@@ -5,20 +5,23 @@
 
 {{ include "dot_profile" }}
 
-if ! type bin > /dev/null; then
-  echo "Installing marcosnils/bin..."
-  wget -O ~/.local/bin/bin '{{ gitHubLatestReleaseAssetURL "marcosnils/bin" (printf "bin_*_%s_%s" .chezmoi.os .chezmoi.arch) }}'
-fi
+{{ $searchPath := list (joinPath .chezmoi.homeDir ".local/bin") }}
 
-if ! type mise > /dev/null; then
-  echo "Installing mise..."
-  curl https://mise.run | sh
-fi
+{{ if not (findExecutable "bin" $searchPath) -}}
+echo "Installing marcosnils/bin..."
+wget -O ~/.local/bin/bin '{{ gitHubLatestReleaseAssetURL "marcosnils/bin" (printf "bin_*_%s_%s" .chezmoi.os .chezmoi.arch) }}'
+chmod +x ~/.local/bin/bin
+{{ end -}}
 
-if ! type rustup > /dev/null; then
-  echo "Installing rust..."
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
-fi
+{{ if not (findExecutable "mise" $searchPath) -}}
+echo "Installing mise..."
+curl https://mise.run | sh
+{{ end -}}
+
+{{ if not (findExecutable "rustup" (list (joinPath .chezmoi.homeDir ".local/share/cargo/bin"))) -}}
+echo "Installing rust..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path -y
+{{ end -}}
 
 mise self-update --no-plugins
 
