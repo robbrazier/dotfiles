@@ -230,3 +230,7 @@ end)
 later(function()
   require('mini.surround').setup()
 end)
+
+later(function()
+  require('mini.statuscolumn').setup()
+end)
