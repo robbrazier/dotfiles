@@ -3,6 +3,7 @@ skip_notify = true
 no_self_update = true
 pre_sudo = true
 assume_yes = true
+cleanup = true
 
 disable = ["bun", "nix", "uv", "yarn", "pnpm", "containers"]
 

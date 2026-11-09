@@ -8,13 +8,13 @@ install_packages() {
 nobara-sync cli
 {{ else -}}
 sudo dnf update -y
+sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 {{ end -}}
 
 # System Utilities
 install_packages {{ .packages | join " " }} btop util-linux-user perl-File-Compare openssl-devel gcc g++
 
 sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/isv:/BrowserWorks/Fedora_{{ .chezmoi.osRelease.versionID }}/isv:BrowserWorks.repo --overwrite
-sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 copr_repos=(lihaohong/yazi)
 for repo in "${copr_repos[@]}"; do

@@ -29,9 +29,10 @@ binPackages = [
   "github.com/rossmacarthur/sheldon",
 ]
 cargoPackages = [
-	"cargo-update",
-	"cargo-info",
 	"bob-nvim",
+	"cargo-cache",
+	"cargo-info",
+	"cargo-update",
 ]
 shell = "zsh"
 
