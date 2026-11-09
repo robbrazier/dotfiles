@@ -13,9 +13,10 @@ sudo dnf update -y
 # System Utilities
 install_packages {{ .packages | join " " }} btop util-linux-user perl-File-Compare openssl-devel gcc g++
 
-sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/isv:/BrowserWorks/Fedora_{{ .chezmoi.osRelease.versionID }}/isv:BrowserWorks.repo
+sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/isv:/BrowserWorks/Fedora_{{ .chezmoi.osRelease.versionID }}/isv:BrowserWorks.repo --overwrite
+sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
-copr_repos=(lihaohong/yazi scottames/ghostty)
+copr_repos=(lihaohong/yazi)
 for repo in "${copr_repos[@]}"; do
     if ! dnf copr list | grep -qF "$repo"; then
         sudo dnf copr enable "$repo"

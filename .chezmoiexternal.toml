@@ -35,3 +35,11 @@ stripComponents = 1
 include = ["*/*.yazi/**"]
 refreshPeriod = "168h"
 exact = true
+
+[".config/ghostty/themes"]
+type = "archive"
+url = "https://api.github.com/repos/catppuccin/ghostty/tarball"
+stripComponents = 2
+include = ["*/themes/**"]
+refreshPeriod = "168h"
+exact = true

@@ -1,10 +1,12 @@
 [tools]
 "aqua:doy/rbw" = "latest"
-opencode = "latest"
 gh = "latest"
 git-cliff = "latest"
 go = "latest"
 node = "lts"
+opencode = "latest"
+ori = "latest"
+pi = "latest"
 python = "latest"
 tree-sitter = "latest"
 usage = "latest"
