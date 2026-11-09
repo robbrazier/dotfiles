@@ -3,3 +3,4 @@
 .local/bin/wezterm
 .local/bin/chezmoi
 .config/nvim-kickstart
+.local/share/applications/zen.desktop
