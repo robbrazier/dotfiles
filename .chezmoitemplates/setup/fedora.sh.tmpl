@@ -16,7 +16,7 @@ install_packages {{ .packages | join " " }} btop util-linux-user perl-File-Compa
 
 sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/isv:/BrowserWorks/Fedora_{{ .chezmoi.osRelease.versionID }}/isv:BrowserWorks.repo --overwrite
 
-copr_repos=(lihaohong/yazi)
+copr_repos=()
 for repo in "${copr_repos[@]}"; do
     if ! dnf copr list | grep -qF "$repo"; then
         sudo dnf copr enable "$repo"
