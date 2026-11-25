@@ -10,7 +10,7 @@ add_to_path() {
 
 add_to_path "$HOME/.local/bin" 
 add_to_path "$HOME/.local/share/npm/bin"
-add_to_path "$HOME/.local/share/bob/nvim-bin"
+# add_to_path "$HOME/.local/share/bob/nvim-bin"
 
 
 export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"

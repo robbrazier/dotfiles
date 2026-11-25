@@ -29,7 +29,7 @@ binPackages = [
   "github.com/rossmacarthur/sheldon",
 ]
 cargoPackages = [
-	"bob-nvim",
+	# "bob-nvim",
 	"cargo-cache",
 	"cargo-info",
 	"cargo-update",
