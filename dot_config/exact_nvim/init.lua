@@ -1,4 +1,4 @@
-vim.pack.add { 'https://github.com/nvim-mini/mini.nvim' }
+vim.pack.add { 'https://codeberg.org/nvim-mini/mini.nvim' }
 
 _G.Config = {}
 

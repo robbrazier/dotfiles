@@ -5,7 +5,7 @@ pre_sudo = true
 assume_yes = true
 cleanup = true
 
-disable = ["bun", "nix", "uv", "yarn", "pnpm", "containers"]
+disable = ["bun", "nix", "uv", "yarn", "pnpm", "containers", "pi"]
 
 [commands]
 "mise upgrade" = "mise self-update --yes"

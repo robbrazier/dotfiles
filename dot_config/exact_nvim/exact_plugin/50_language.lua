@@ -11,23 +11,16 @@ now_if_args(function()
   add {
     'https://github.com/nvim-treesitter/nvim-treesitter',
     'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
-    'https://github.com/nvim-treesitter/nvim-treesitter-context',
   }
 
-  -- Define languages which will have parsers installed and auto enabled
-  -- After changing this, restart Neovim once to install necessary parsers. Wait
-  -- for the installation to finish before opening a file for added language(s).
-  local popular_languages = {
+  local languages = {
     'bash',
-    'c',
-    'cpp',
     'css',
     'diff',
     'dockerfile',
     'go',
     'html',
     'ini',
-    'java',
     'javascript',
     'json',
     'latex',
@@ -37,8 +30,6 @@ now_if_args(function()
     'markdown_inline',
     'python',
     'regex',
-    'ruby',
-    'rust',
     'toml',
     'tsx',
     'typescript',
@@ -46,14 +37,8 @@ now_if_args(function()
     'vimdoc',
     'xml',
     'yaml',
-  }
-  local languages = {
-    'templ',
     'gotmpl',
-    'terraform',
   }
-
-  vim.list_extend(languages, popular_languages)
 
   local isnt_installed = function(lang)
     return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
@@ -76,36 +61,36 @@ now_if_args(function()
   Config.new_autocmd('FileType', filetypes, ts_start, 'Start tree-sitter')
 end)
 
--- Mason: disabled by default --
--- now_if_args(function()
---   add 'https://github.com/mason-org/mason.nvim'
---   require('mason').setup()
--- end)
+now_if_args(function()
+  add { 'https://github.com/mason-org/mason.nvim' }
+  require('mason').setup()
+end)
 
 -- Language servers --
-
 now_if_args(function()
-  -- add 'b0o/schemastore.nvim'
-  add { 'https://github.com/neovim/nvim-lspconfig' }
+  add {
+    'https://github.com/neovim/nvim-lspconfig',
+    'https://github.com/mason-org/mason-lspconfig.nvim',
+  }
 
-  -- Use `:h vim.lsp.enable()` to automatically enable language server based on
-  -- the rules provided by 'nvim-lspconfig'.
-  -- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
-  -- Uncomment and tweak the following `vim.lsp.enable()` call to enable servers.
-  vim.lsp.enable {
+  local servers = {
     'lua_ls',
     'gopls',
     'golangci_lint_ls',
     'templ',
     'superhtml',
     'ts_ls', -- typescript
-    -- 'taplo', -- toml
-    -- 'yamlls',
-    -- 'jsonls',
+    'taplo', -- toml
+    'yamlls',
+    'jsonls',
     'tofu_ls',
     'ruff',
     'basedpyright',
     'bashls',
-    'openscad_lsp',
+  }
+
+  require('mason-lspconfig').setup {
+    ensure_installed = servers,
+    automatic_enable = true,
   }
 end)

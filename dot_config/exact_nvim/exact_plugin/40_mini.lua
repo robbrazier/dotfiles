@@ -8,7 +8,8 @@ now(function()
   -- Set up to not prefer extension-based icon for some extensions
   local ext3_blocklist = { scm = true, txt = true, yml = true }
   local ext4_blocklist = { json = true, yaml = true }
-  require('mini.icons').setup {
+  local icons = require 'mini.icons'
+  icons.setup {
     use_file_extension = function(ext, _)
       return not (ext3_blocklist[ext:sub(-3)] or ext4_blocklist[ext:sub(-4)])
     end,
@@ -16,10 +17,10 @@ now(function()
 
   -- Mock 'nvim-tree/nvim-web-devicons' for plugins without 'mini.icons' support.
   -- Not needed for 'mini.nvim' or MiniMax, but might be useful for others.
-  later(MiniIcons.mock_nvim_web_devicons)
+  later(icons.mock_nvim_web_devicons)
 
   -- Add LSP kind icons. Useful for 'mini.completion'.
-  later(MiniIcons.tweak_lsp_kind)
+  later(icons.tweak_lsp_kind)
 end)
 
 now(function()
@@ -91,15 +92,14 @@ end)
 
 later(function()
   local ai = require 'mini.ai'
+  local gen = ai.gen_spec.treesitter
+  ---@diagnostic disable-next-line: undefined-global
+  local gen_ai_spec = MiniExtra.gen_ai_spec
   ai.setup {
-    -- 'mini.ai' can be extended with custom textobjects
     custom_textobjects = {
-      -- Make `aB` / `iB` act on around/inside whole *b*uffer
-      B = MiniExtra.gen_ai_spec.buffer(),
-      -- For more complicated textobjects that require structural awareness,
-      -- use tree-sitter. This example makes `aF`/`iF` mean around/inside function
-      -- definition (not call). See `:h MiniAi.gen_spec.treesitter()` for details.
-      F = ai.gen_spec.treesitter { a = '@function.outer', i = '@function.inner' },
+      B = gen_ai_spec.buffer(),
+      F = gen { a = '@function.outer', i = '@function.inner' },
+      o = gen { a = { '@block.outer', '@conditional.outer', '@loop.outer' }, i = { '@block.inner', '@conditional.inner', '@loop.inner' } },
     },
 
     search_method = 'cover',
@@ -162,6 +162,7 @@ end)
 
 later(function()
   local hipatterns = require 'mini.hipatterns'
+  ---@diagnostic disable-next-line: undefined-global
   local hi_words = MiniExtra.gen_highlighter.words
   hipatterns.setup {
     highlighters = {
