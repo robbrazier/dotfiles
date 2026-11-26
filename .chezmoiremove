@@ -1,3 +1,4 @@
 .config/mise/config.local.toml
 .local/bin/chezmoi
 .local/share/applications/zen.desktop
+.config/mise/config.g/lsp.toml

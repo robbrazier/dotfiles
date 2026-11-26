@@ -1,7 +1,6 @@
 [tools]
 "aqua:doy/rbw" = "latest"
 gh = "latest"
-git-cliff = "latest"
 go = "latest"
 node = "lts"
 opencode = "latest"
