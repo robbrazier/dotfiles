@@ -1,8 +1,8 @@
-local add, later = Config.add, Config.later
+local add, on_event = Config.add, Config.on_event
 
 -- Formatting --
 
-later(function()
+on_event('InsertEnter', function()
   add { 'https://github.com/stevearc/conform.nvim' }
 
   local ensure = { 'stylua', 'gofumpt', 'ruff' }
@@ -33,13 +33,13 @@ later(function()
   end, 'Format on Save')
 end)
 
-later(function()
+on_event('BufReadPre,BufNewFile', function()
   add { 'https://github.com/nmac427/guess-indent.nvim' }
   require('guess-indent').setup()
 end)
 
 -- Snippets --
 
-later(function()
+on_event('InsertEnter', function()
   add { 'https://github.com/rafamadriz/friendly-snippets' }
 end)

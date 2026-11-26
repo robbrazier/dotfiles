@@ -80,9 +80,9 @@ now_if_args(function()
     'templ',
     'superhtml',
     'ts_ls', -- typescript
-    'taplo', -- toml
-    'yamlls',
-    'jsonls',
+    -- 'taplo', -- toml
+    -- 'yamlls',
+    -- 'jsonls',
     'ruff',
     'basedpyright',
     'bashls',

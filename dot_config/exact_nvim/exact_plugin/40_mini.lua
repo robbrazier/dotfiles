@@ -2,7 +2,7 @@
 -- │ MINI configuration │
 -- └────────────────────┘
 
-local now, now_if_args, later = Config.now, Config.now_if_args, Config.later
+local now, now_if_args, later, on_event = Config.now, Config.now_if_args, Config.later, Config.on_event
 
 now(function()
   -- Set up to not prefer extension-based icon for some extensions
@@ -201,7 +201,7 @@ later(function()
   vim.ui.select = pick.ui_select
 end)
 
-later(function()
+on_event('InsertEnter', function()
   -- Define language patterns to work better with 'friendly-snippets'
   local latex_patterns = { 'latex/**/*.json', '**/latex.json' }
   local lang_patterns = {
