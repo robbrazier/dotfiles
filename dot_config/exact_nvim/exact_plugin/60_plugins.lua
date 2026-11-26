@@ -5,6 +5,17 @@ local add, later = Config.add, Config.later
 later(function()
   add { 'https://github.com/stevearc/conform.nvim' }
 
+  local ensure = { 'stylua', 'gofumpt', 'ruff' }
+  local registry = require 'mason-registry'
+  registry.refresh(function()
+    for _, name in ipairs(ensure) do
+      local ok, pkg = pcall(registry.get_package, name)
+      if ok and not pkg:is_installed() then
+        pkg:install()
+      end
+    end
+  end)
+
   require('conform').setup {
     default_format_opts = {
       -- Allow formatting from LSP server if no dedicated formatter is available
@@ -14,7 +25,6 @@ later(function()
       lua = { 'stylua' },
       python = { 'ruff_format' },
       go = { 'gofumpt' },
-      templ = { 'templ' },
     },
   }
 

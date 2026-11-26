@@ -83,7 +83,6 @@ now_if_args(function()
     'taplo', -- toml
     'yamlls',
     'jsonls',
-    'tofu_ls',
     'ruff',
     'basedpyright',
     'bashls',
